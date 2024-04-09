@@ -13,7 +13,6 @@ import ImageModal from "./components/ImageModal/ImageModal";
 function App() {
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isBtnClicked, setIsBtnClicked] = useState(false);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -23,7 +22,7 @@ function App() {
   useEffect(() => {
     async function getData() {
       try {
-        if (isBtnClicked) {
+        if (searchQuery) {
           setLoading(true);
           if (searchQuery.trim() === "") {
             Report.warning("Error", "you should type something...", "Close");
@@ -40,17 +39,10 @@ function App() {
       }
     }
 
-    setIsBtnClicked(false);
     getData();
-  }, [isBtnClicked, page]);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setIsBtnClicked(true);
-  }
+  }, [searchQuery, page]);
 
   async function handleLoadMore() {
-    setIsBtnClicked(true);
     setPage((prev) => prev + 1);
   }
 
@@ -63,16 +55,11 @@ function App() {
   }
   return (
     <>
-      <SearchBar
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        onSubmit={handleSubmit}
-      />
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       {error && <ErrorMessage />}
       {items?.length > 0 ? (
         <ImageGallery
           items={items}
-          // currentImage={currentImage}
           setCurrentImage={setCurrentImage}
           openModal={openModal}
         />

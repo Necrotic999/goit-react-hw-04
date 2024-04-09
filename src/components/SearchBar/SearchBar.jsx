@@ -1,27 +1,37 @@
+import { Formik, Form, Field } from "formik";
 import css from "./SearchBar.module.css";
 
-const SearchBar = ({ searchQuery, setSearchQuery, onSubmit }) => {
+const SearchBar = ({ setSearchQuery }) => {
+  async function handleSubmit(data, options) {
+    setSearchQuery(data.query);
+    options.resetForm();
+  }
+
+  const initialValues = {
+    query: "",
+  };
+
   return (
     <header>
-      <form className={css.form}>
-        <input
-          className={css.input}
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-          }}
-          name="query"
-          type="text"
-          autoComplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-        <button className={css.btn} onClick={onSubmit} type="submit">
-          Search
-        </button>
-      </form>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Form className={css.form}>
+          <Field
+            className={css.input}
+            name="query"
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+          <button className={css.btn} type="submit">
+            Search
+          </button>
+        </Form>
+      </Formik>
     </header>
   );
 };
 
 export default SearchBar;
+
+//onClick={onSubmit}

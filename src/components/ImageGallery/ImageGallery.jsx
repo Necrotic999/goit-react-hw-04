@@ -5,12 +5,15 @@ const ImageGallery = ({ items, setCurrentImage, openModal }) => {
   return (
     <ul className={css.list}>
       <li className={css.item}>
-        <ImageCard
-          openModal={openModal}
-          items={items}
-          // currentImage={currentImage}
-          setCurrentImage={setCurrentImage}
-        />
+        {items.map((img) => (
+          <ImageCard
+            key={img.id}
+            img={img}
+            openModal={openModal}
+            items={items}
+            setCurrentImage={setCurrentImage}
+          />
+        ))}
       </li>
     </ul>
   );
