@@ -3,11 +3,11 @@ import css from "./SearchBar.module.css";
 
 const SearchBar = ({ setSearchQuery, Report }) => {
   function handleSubmit(data, options) {
-    setSearchQuery(data.query);
     if (!data.query.trim()) {
       Report.warning("Error", "you should type something...", "Close");
       return;
     }
+    setSearchQuery(data.query);
     options.resetForm();
   }
 
