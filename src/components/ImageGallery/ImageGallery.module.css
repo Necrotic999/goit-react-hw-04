@@ -1,12 +1,15 @@
 .list {
   padding: 0;
   margin-bottom: 50px;
-}
-
-.item {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
   justify-content: center;
   align-items: center;
 }

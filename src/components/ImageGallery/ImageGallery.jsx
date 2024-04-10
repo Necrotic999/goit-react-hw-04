@@ -4,17 +4,16 @@ import css from "./ImageGallery.module.css";
 const ImageGallery = ({ items, setCurrentImage, openModal }) => {
   return (
     <ul className={css.list}>
-      <li className={css.item}>
-        {items.map((img) => (
+      {items.map((img) => (
+        <li key={img.id} className={css.item}>
           <ImageCard
-            key={img.id}
             img={img}
             openModal={openModal}
             items={items}
             setCurrentImage={setCurrentImage}
           />
-        ))}
-      </li>
+        </li>
+      ))}
     </ul>
   );
 };

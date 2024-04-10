@@ -22,15 +22,9 @@ function App() {
   useEffect(() => {
     async function getData() {
       try {
-        if (searchQuery) {
-          setLoading(true);
-          if (searchQuery.trim() === "") {
-            Report.warning("Error", "you should type something...", "Close");
-            return;
-          }
-          const { results } = await fetchImages(searchQuery, { page });
-          setItems((prev) => [...prev, ...results]);
-        }
+        setLoading(true);
+        const { results } = await fetchImages(searchQuery, { page });
+        setItems((prev) => [...prev, ...results]);
       } catch (error) {
         console.log(error.message);
         setError(true);
@@ -38,7 +32,6 @@ function App() {
         setLoading(false);
       }
     }
-
     getData();
   }, [searchQuery, page]);
 
@@ -55,7 +48,7 @@ function App() {
   }
   return (
     <>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBar setSearchQuery={setSearchQuery} Report={Report} />
       {error && <ErrorMessage />}
       {items?.length > 0 ? (
         <ImageGallery

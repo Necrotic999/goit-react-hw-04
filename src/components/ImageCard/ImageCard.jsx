@@ -10,8 +10,8 @@ const ImageCard = ({ setCurrentImage, openModal, img }) => {
             setCurrentImage(img.urls.regular);
             openModal();
           }}
-          src={img.urls.small}
-          alt={img.alt_description}
+          src={img.urls.small || ""}
+          alt={img.alt_description || "photo of your search query"}
         />
       </div>
     </>

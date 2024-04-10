@@ -1,9 +1,13 @@
 import { Formik, Form, Field } from "formik";
 import css from "./SearchBar.module.css";
 
-const SearchBar = ({ setSearchQuery }) => {
-  async function handleSubmit(data, options) {
+const SearchBar = ({ setSearchQuery, Report }) => {
+  function handleSubmit(data, options) {
     setSearchQuery(data.query);
+    if (!data.query.trim()) {
+      Report.warning("Error", "you should type something...", "Close");
+      return;
+    }
     options.resetForm();
   }
 
@@ -33,5 +37,3 @@ const SearchBar = ({ setSearchQuery }) => {
 };
 
 export default SearchBar;
-
-//onClick={onSubmit}
