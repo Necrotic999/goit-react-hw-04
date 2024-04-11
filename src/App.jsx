@@ -25,6 +25,10 @@ function App() {
         setLoading(true);
         const { results } = await fetchImages(searchQuery, { page });
         setItems((prev) => [...prev, ...results]);
+        if (searchQuery && results.length === 0) {
+          Report.warning("Error", "No results for your query", "Close");
+          return;
+        }
       } catch (error) {
         console.log(error.message);
         setError(true);
@@ -48,7 +52,13 @@ function App() {
   }
   return (
     <>
-      <SearchBar setSearchQuery={setSearchQuery} Report={Report} />
+      <SearchBar
+        setSearchQuery={setSearchQuery}
+        Report={Report}
+        searchQuery={searchQuery}
+        setItems={setItems}
+        items={items}
+      />
       {error && <ErrorMessage />}
       {items?.length > 0 ? (
         <ImageGallery
